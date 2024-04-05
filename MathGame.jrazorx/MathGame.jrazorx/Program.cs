@@ -5,29 +5,20 @@ using MathGame.jrazorx;
 // CONSTANTS
 // --------------------------------------------------
 
-// Letters corresponding to valid menu items
 const string validMenuItems = "ASMDHQ";
 
 // --------------------------------------------------
 // VARIABLES
 // --------------------------------------------------
 
-// Generic string for reading user input
 string? readResult;
 
-// Menu item chosen by the user
 char menuItemChosen;
 
-// game occurence
 int gameOccurence = 0;
-// List of previous games
 List<string> gamesHistory = new ();
 
-// current Game object
 Game currentGame;
-
-
-
 
 // --------------------------------------------------
 // EXECUTION
@@ -45,20 +36,15 @@ while (true)
     Console.Clear();
 }
 
-
-
-
 // --------------------------------------------------
 // METHODS
 // --------------------------------------------------
 
-// Greets the user
 void Greetings()
 {
     Console.WriteLine("Welcome to the Math Game !\n");
 }
 
-// Displays the menu
 void DisplayMenu()
 {
     Console.WriteLine(@"Menu
@@ -71,7 +57,6 @@ H - History of previous games
 Q - Quit");
 }
 
-// returns a valid user selected menu item
 char ChooseMenuItem()
 {
     while (true)
@@ -92,7 +77,6 @@ char ChooseMenuItem()
     }
 }
 
-// Executes the action corresponding to the menu item chosen by the user
 void MenuItemAction(char menuItemChosen)
 {
     switch (menuItemChosen)
@@ -135,7 +119,6 @@ void DisplayGameHistory(List<string> gamesHistory)
     }
 }
 
-// Format the game data into a string for the history array to be displayed nicely on screen
 string GameHistoryFormatLine(int gameOccurence, Game currentGame)
 {
     StringBuilder gamesHistoryLine = new StringBuilder();
@@ -150,7 +133,6 @@ string GameHistoryFormatLine(int gameOccurence, Game currentGame)
     return gamesHistoryLine.ToString();
 }
 
-// Saves the last game played in the List
 void SaveGame(Game currentGame)
 {
     try

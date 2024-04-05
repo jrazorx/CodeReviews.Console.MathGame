@@ -6,29 +6,22 @@ namespace MathGame.jrazorx
     {
         private static Random random = new();
 
-        // Game Mode (Addition, Subtraction, Multiplication, Division)
         public string Mode { get; }
 
         // The random numbers used for the game
         public int FirstNumber { get; }
         public int SecondNumber { get; }
 
-        // The correct answer of the game
         public int CorrectAnswer { get; }
 
-        // Current operation for display
         public string Operation { get; }
 
-        // Player's answer to the game
         public int PlayerAnswer { get; private set; }
 
-        // result of the game : True = WIN, False = LOSE
         public bool IsWin { get; private set; }
 
         public TimeSpan TimeTakenToAnswer { get; private set; }
 
-
-        // Constructor, requires game mode letter input (A, S, M, D)
         public Game(char gameLetter)
         {
             switch (gameLetter)
@@ -73,7 +66,6 @@ namespace MathGame.jrazorx
             }
         }
 
-        // Play the game
         public void Play()
         {
             Console.Clear();
@@ -122,7 +114,6 @@ namespace MathGame.jrazorx
             }
         }
 
-        // Win (true) or lose (false) the game and displays a message
         private void WinOrLose(int playerAnswer)
         {
             if (playerAnswer == CorrectAnswer)
@@ -139,7 +130,6 @@ namespace MathGame.jrazorx
             PrintTimeTakenToAnswer(TimeTakenToAnswer);
         }
 
-        // Print the time it took the user to answer, in English
         private static void PrintTimeTakenToAnswer(TimeSpan timeTakenToAnswer)
         {
             string result = "Time taken to answer: ";
