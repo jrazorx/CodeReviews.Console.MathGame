@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using static MathGame.jrazorx.Menu;
 
 namespace MathGame.jrazorx
 {
@@ -6,52 +7,57 @@ namespace MathGame.jrazorx
     {
         private static Random random = new();
 
-        public string Mode { get; }
+        internal static int CurrentGameNumber { get; private set; } = 0;
+
+        internal GameMode Mode { get; }
 
         // The random numbers used for the game
-        public int FirstNumber { get; }
-        public int SecondNumber { get; }
+        internal int FirstNumber { get; }
+        internal int SecondNumber { get; }
 
-        public int CorrectAnswer { get; }
+        internal int CorrectAnswer { get; }
 
-        public string Operation { get; }
+        internal string Operation { get; }
 
-        public int PlayerAnswer { get; private set; }
+        internal int PlayerAnswer { get; private set; }
 
-        public bool IsWin { get; private set; }
+        internal bool IsWin { get; private set; }
 
-        public TimeSpan TimeTakenToAnswer { get; private set; }
+        internal TimeSpan TimeTakenToAnswer { get; private set; }
 
-        public Game(char gameLetter)
+        internal Game(GameMode gameMode)
         {
-            switch (gameLetter)
+            if (!Enum.IsDefined(typeof(GameMode), gameMode))
             {
-                case 'A':
-                    Mode = "Addition";
+                throw new ArgumentException("Invalid game mode");
+            }
+            Mode = gameMode;
+            CurrentGameNumber++;
+
+            switch (gameMode)
+            {
+                case GameMode.Addition:
                     FirstNumber = random.Next(0, 10);
                     SecondNumber = random.Next(0, 10);
                     CorrectAnswer = FirstNumber + SecondNumber;
                     Operation = $"{FirstNumber} + {SecondNumber}";
                     break;
 
-                case 'S':
-                    Mode = "Subtraction";
+                case GameMode.Subtraction:
                     FirstNumber = random.Next(0, 10);
                     SecondNumber = random.Next(0, 10);
                     CorrectAnswer = FirstNumber - SecondNumber;
                     Operation = $"{FirstNumber} - {SecondNumber}";
                     break;
 
-                case 'M':
-                    Mode = "Multiplication";
+                case GameMode.Multiplication:
                     FirstNumber = random.Next(0, 10);
                     SecondNumber = random.Next(0, 10);
                     CorrectAnswer = FirstNumber * SecondNumber;
                     Operation = $"{FirstNumber} x {SecondNumber}";
                     break;
 
-                case 'D':
-                    Mode = "Division";
+                case GameMode.Division:
                     do
                     {
                         FirstNumber = random.Next(0, 101);
@@ -66,7 +72,7 @@ namespace MathGame.jrazorx
             }
         }
 
-        public void Play()
+        internal void Play()
         {
             Console.Clear();
             Console.WriteLine(@$"{Mode} Game
@@ -142,6 +148,14 @@ namespace MathGame.jrazorx
                 result += "more than a minute";
 
             Console.WriteLine(result);
+        }
+
+        internal enum GameMode
+        {
+            Addition        = 'A',
+            Multiplication  = 'M',
+            Division        = 'D',
+            Subtraction     = 'S'
         }
     }
 }
